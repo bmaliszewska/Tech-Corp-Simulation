@@ -29,3 +29,13 @@ public class Project {
         }
     }
 }
+
+public int turnsNeeded() {
+    int totalProductivity = 0;
+
+    for (Employee employee : team) {
+        totalProductivity += employee.productivity;
+    }
+
+    return (int) Math.ceil((double) requiredWork / totalProductivity);
+}
