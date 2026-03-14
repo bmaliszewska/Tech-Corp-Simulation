@@ -32,5 +32,8 @@ public class Main {
 
         project.workOneTurn();
         project2.workOneTurn();
+
+        System.out.println("Turns needed for Mobile App: " + project.turnsNeeded());
+        System.out.println("Turns needed for Website: " + project2.turnsNeeded());
     }
 }
