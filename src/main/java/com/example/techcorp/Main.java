@@ -14,7 +14,7 @@ public class Main {
         company.hire(piotr);
         company.hire(kasia);
 
-        Project project = new Project("Mobile␣App", 30);
+        Project project = new Project("Mobile␣App", 60);
 
         project.addEmployee(anna);
         project.addEmployee(piotr);
@@ -22,6 +22,15 @@ public class Main {
 
         company.startProject(project);
 
+        Project project2 = new Project("Website", 80);
+
+        project2.addEmployee(anna);
+        project2.addEmployee(piotr);
+        project2.addEmployee(kasia);
+
+        company.startProject(project2);
+
         project.workOneTurn();
+        project2.workOneTurn();
     }
 }
