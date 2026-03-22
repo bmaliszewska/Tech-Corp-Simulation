@@ -4,15 +4,23 @@ import java.util.ArrayList;
 
 public class Company {
 
-    String name;
-    int budget;
+    private String name;
+    private int budget;
 
-    ArrayList<Employee> employees = new ArrayList<>();
-    ArrayList<Project> projects = new ArrayList<>();
+    private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<Project> projects = new ArrayList<>();
 
     public Company(String name, int budget) {
         this.name = name;
         this.budget = budget;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBudget() {
+        return budget;
     }
 
     public void hire(Employee employee) {
@@ -21,5 +29,27 @@ public class Company {
 
     public void startProject(Project project) {
         projects.add(project);
+    }
+
+    public void printStatus() {
+        System.out.println("=== COMPANY STATUS ===");
+        System.out.println("Company: " + name);
+        System.out.println("Budget: " + budget);
+
+        System.out.println("\nEmployees:");
+        for (Employee employee : employees) {
+            System.out.println("- " + employee);
+        }
+
+        System.out.println("\nProjects:");
+        for (Project project : projects) {
+            System.out.println("- " + project.getName() + " | progress: "
+                    + project.getProgress() + "/" + project.getRequiredWork());
+
+            System.out.println("  Team:");
+            for (Employee employee : project.getTeam()) {
+                System.out.println("  - " + employee.getName() + " (" + employee.getRoleName() + ")");
+            }
+        }
     }
 }

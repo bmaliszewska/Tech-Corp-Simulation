@@ -1,6 +1,6 @@
 package com.example.techcorp;
 
-public class Employee {
+public abstract class Employee {
 
     private String name;
     private int skill;
@@ -8,11 +8,36 @@ public class Employee {
 
     public Employee(String name, int skill, double salary) {
         this.name = name;
-        this.skill = skill;
+        setSkill(skill);
         this.salary = salary;
     }
 
-    public int work() {
-    return skill;
+    public String getName() {
+        return name;
     }
- }
+
+    public int getSkill() {
+        return skill;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSkill(int skill) {
+        if (skill >= 1 && skill <= 10) {
+            this.skill = skill;
+        } else {
+            this.skill = 1;
+        }
+    }
+
+    public abstract int work();
+
+    public abstract String getRoleName();
+
+    @Override
+    public String toString() {
+        return name + " | role: " + getRoleName() + " | skill: " + skill + " | salary: " + salary;
+    }
+}
