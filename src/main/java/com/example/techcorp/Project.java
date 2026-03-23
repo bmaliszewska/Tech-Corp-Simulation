@@ -35,16 +35,6 @@ public class Project {
         team.add(employee);
     }
 
-    public void workOneTurn() {
-        for (Employee employee : team) {
-            progress += employee.work();
-        }
-
-        if (progress > requiredWork) {
-            progress = requiredWork;
-        }
-    }
-
     public boolean isFinished() {
         return progress >= requiredWork;
     }
@@ -72,4 +62,55 @@ public class Project {
 
         return (int) Math.ceil((double) remainingWork / totalProductivity);
     }
+
+    public enum ProjectStatus {
+        PLANNED,
+        IN_PROGRESS,
+        ON_HOLD,
+        FINISHED,
+        CANCELLED
+    }
+
+    private ProjectStatus status = ProjectStatus.PLANNED;
+
+    public void start() {
+        if (status == ProjectStatus.PLANNED) {
+            status = ProjectStatus.IN_PROGRESS;
+            System.out.println("Project started");
+        }
+    }
+
+    public void putOnHold() {
+        if (status == ProjectStatus.IN_PROGRESS) {
+         status = ProjectStatus.ON_HOLD;
+            System.out.println("Project is now ON HOLD");
+        }
+    }
+
+    public void resume() {
+        if (status == ProjectStatus.ON_HOLD) {
+          status = ProjectStatus.IN_PROGRESS;
+         System.out.println("Project resumed (IN PROGRESS)");
+        }
+    }
+
+    public void workOneTurn() {
+        if (status == ProjectStatus.PLANNED ||
+            status == ProjectStatus.ON_HOLD ||
+            status == ProjectStatus.CANCELLED ||
+            status == ProjectStatus.FINISHED) {
+            return;
+        }
+
+        for (Employee employee : team) {
+            progress += employee.work();
+            }
+
+        if (progress >= requiredWork) {
+            progress = requiredWork;
+            status = ProjectStatus.FINISHED;
+            System.out.println("Project finished!");
+        }
+    }
+
 }
