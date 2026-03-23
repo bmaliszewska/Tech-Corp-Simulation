@@ -8,7 +8,7 @@ public class Project {
     private int requiredWork;
     private int progress = 0;
 
-    private ArrayList<Employee> team = new ArrayList<>();
+    private ArrayList<Workable> team = new ArrayList<>();
 
     public Project(String name, int requiredWork) {
         this.name = name;
@@ -27,12 +27,12 @@ public class Project {
         return progress;
     }
 
-    public ArrayList<Employee> getTeam() {
+    public ArrayList<Workable> getTeam() {
         return team;
     }
 
-    public void addEmployee(Employee employee) {
-        team.add(employee);
+    public void addWorker(Workable worker) {
+        team.add(worker);
     }
 
     public boolean isFinished() {
@@ -46,8 +46,8 @@ public class Project {
     public int turnsNeeded() {
         int totalProductivity = 0;
 
-        for (Employee employee : team) {
-            totalProductivity += employee.work();
+        for (Workable worker : team) {
+            totalProductivity += worker.work();
         }
 
         if (totalProductivity == 0) {
@@ -82,15 +82,15 @@ public class Project {
 
     public void putOnHold() {
         if (status == ProjectStatus.IN_PROGRESS) {
-         status = ProjectStatus.ON_HOLD;
+            status = ProjectStatus.ON_HOLD;
             System.out.println("Project is now ON HOLD");
         }
     }
 
     public void resume() {
         if (status == ProjectStatus.ON_HOLD) {
-          status = ProjectStatus.IN_PROGRESS;
-         System.out.println("Project resumed (IN PROGRESS)");
+            status = ProjectStatus.IN_PROGRESS;
+            System.out.println("Project resumed (IN PROGRESS)");
         }
     }
 
@@ -102,9 +102,9 @@ public class Project {
             return;
         }
 
-        for (Employee employee : team) {
-            progress += employee.work();
-            }
+        for (Workable worker : team) {
+            progress += worker.work();
+        }
 
         if (progress >= requiredWork) {
             progress = requiredWork;
@@ -112,5 +112,4 @@ public class Project {
             System.out.println("Project finished!");
         }
     }
-
 }

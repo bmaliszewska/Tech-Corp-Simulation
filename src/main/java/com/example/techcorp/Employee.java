@@ -1,6 +1,6 @@
 package com.example.techcorp;
 
-public abstract class Employee {
+public abstract class Employee implements Workable {
 
     private String name;
     private int skill;
@@ -32,6 +32,7 @@ public abstract class Employee {
         }
     }
 
+    @Override
     public abstract int work();
 
     public abstract String getRoleName();

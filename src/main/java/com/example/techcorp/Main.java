@@ -41,14 +41,15 @@ public class Main {
         System.out.println("\nSalary of Anna: " + getSalary(anna));
         System.out.println("Anna + Piotr skills: " + addSkills(anna, piotr));
 
+        // === Project 1 & 2 ===
         Project project1 = new Project("Mobile App", 60);
         Project project2 = new Project("Website", 60);
 
-        project1.addEmployee(anna);
-        project1.addEmployee(piotr);
+        project1.addWorker(anna);
+        project1.addWorker(piotr);
 
-        project2.addEmployee(kasia);
-        project2.addEmployee(ola);
+        project2.addWorker(kasia);
+        project2.addWorker(ola);
 
         company.startProject(project1);
         company.startProject(project2);
@@ -90,11 +91,12 @@ public class Main {
         System.out.println(project1.getName() + " finished: " + project1.isFinished());
         System.out.println(project2.getName() + " finished: " + project2.isFinished());
 
+        // === Project 3 ===
         Project project3 = new Project("CRM System", 100);
-        project3.addEmployee(anna);
-        project3.addEmployee(piotr);
-        project3.addEmployee(kasia);
-        project3.addEmployee(ola);
+        project3.addWorker(anna);
+        project3.addWorker(piotr);
+        project3.addWorker(kasia);
+        project3.addWorker(ola);
 
         int turns = 0;
         while (!project3.isFinished()) {
@@ -104,5 +106,26 @@ public class Main {
 
         System.out.println("\nCRM System finished in " + turns + " turns.");
         printProjectStatus(project3);
+
+        // === Project 4 (Mixed Team) ===
+        Project project4 = new Project("AI Automation", 80);
+
+        project4.addWorker(anna);
+        project4.addWorker(piotr);
+
+        FreelancerBot bot = new FreelancerBot("AutoWorker", 5);
+        project4.addWorker(bot);
+
+        project4.start();
+
+        int turnMixed = 1;
+        while (!project4.isFinished()) {
+            System.out.println("\n=== TURN " + turnMixed + " ===");
+            project4.workOneTurn();
+            project4.printProgress();
+            turnMixed++;
+        }
+
+        System.out.println(project4.getName() + " finished in " + (turnMixed-1) + " turns.");
     }
 }
