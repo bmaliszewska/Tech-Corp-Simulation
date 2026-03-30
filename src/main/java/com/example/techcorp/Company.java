@@ -47,8 +47,12 @@ public class Company {
                     + project.getProgress() + "/" + project.getRequiredWork());
 
             System.out.println("  Team:");
-            for (Employee employee : project.getTeam()) {
-                System.out.println("  - " + employee.getName() + " (" + employee.getRoleName() + ")");
+            for (Workable worker : project.getTeam()) {
+                if (worker instanceof Employee employee) {
+                    System.out.println("  - " + employee.getName() + " (" + employee.getRoleName() + ")");
+                } else {
+                    System.out.println("  - " + worker);
+                }
             }
         }
     }
