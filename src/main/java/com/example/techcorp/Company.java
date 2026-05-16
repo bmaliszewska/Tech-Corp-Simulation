@@ -1,16 +1,23 @@
 package com.example.techcorp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Company {
 
     private String name;
-    private int budget;
+    private double budget;
+    private List<Employee> employees = new ArrayList<>();
+    private List<Project> projects = new ArrayList<>();
 
-    private ArrayList<Employee> employees = new ArrayList<>();
-    private ArrayList<Project> projects = new ArrayList<>();
+    public Company(String name, double budget) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Company name cannot be empty.");
+        }
+        if (budget < 0) {
+            throw new IllegalArgumentException("Initial budget cannot be negative.");
+        }
 
-    public Company(String name, int budget) {
         this.name = name;
         this.budget = budget;
     }
@@ -19,41 +26,61 @@ public class Company {
         return name;
     }
 
-    public int getBudget() {
+    public double getBudget() {
         return budget;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
     public void hire(Employee employee) {
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee cannot be null.");
+        }
         employees.add(employee);
     }
 
     public void startProject(Project project) {
+        if (project == null) {
+            throw new IllegalArgumentException("Project cannot be null.");
+        }
         projects.add(project);
     }
 
-    public void printStatus() {
-        System.out.println("=== COMPANY STATUS ===");
-        System.out.println("Company: " + name);
-        System.out.println("Budget: " + budget);
+    public void reduceBudget(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative.");
+        }
+        budget -= amount;
+    }
 
-        System.out.println("\nEmployees:");
+    public void increaseBudget(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative.");
+        }
+        budget += amount;
+    }
+
+    public double calculateMonthlySalaries() {
+        double total = 0;
+
         for (Employee employee : employees) {
-            System.out.println("- " + employee);
+            total += employee.getSalary();
         }
 
-        System.out.println("\nProjects:");
-        for (Project project : projects) {
-            System.out.println("- " + project.getName() + " | progress: "
-                    + project.getProgress() + "/" + project.getRequiredWork());
+        return total;
+    }
 
-            System.out.println("  Team:");
-            for (Workable worker : project.getTeam()) {
-                if (worker instanceof Employee employee) {
-                    System.out.println("  - " + employee.getName() + " (" + employee.getRoleName() + ")");
-                } else {
-                    System.out.println("  - " + worker);
-                }
-            }
-        }
+    public void paySalaries() {
+        reduceBudget(calculateMonthlySalaries());
+    }
+
+    public boolean isBankrupt() {
+        return budget < 0;
     }
 }

@@ -7,8 +7,29 @@ public abstract class Employee implements Workable {
     private double salary;
 
     public Employee(String name, int skill, double salary) {
-        this.name = name;
+        setName(name);
         setSkill(skill);
+        setSalary(salary);
+    }
+
+    private void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Employee name cannot be empty.");
+        }
+        this.name = name;
+    }
+
+    private void setSkill(int skill) {
+        if (skill < 1 || skill > 10) {
+            throw new IllegalArgumentException("Skill must be between 1 and 10.");
+        }
+        this.skill = skill;
+    }
+
+    private void setSalary(double salary) {
+        if (salary < 0) {
+            throw new IllegalArgumentException("Salary cannot be negative.");
+        }
         this.salary = salary;
     }
 
@@ -22,14 +43,6 @@ public abstract class Employee implements Workable {
 
     public double getSalary() {
         return salary;
-    }
-
-    public void setSkill(int skill) {
-        if (skill >= 1 && skill <= 10) {
-            this.skill = skill;
-        } else {
-            this.skill = 1;
-        }
     }
 
     @Override
